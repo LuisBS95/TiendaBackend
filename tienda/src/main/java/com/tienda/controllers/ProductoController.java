@@ -28,8 +28,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,8 +60,8 @@ import com.tienda.services.ProductoService;
 public class ProductoController {
 
 //	
-//	@Autowired
-//	private ProductoService productoService;
+	@Autowired
+	private ProductoService productoService;
 //	
 //	@GetMapping("/listar/{id}") 
 //	public List<ProductosCat> listarProducto(@PathVariable Long id ){
@@ -75,6 +79,21 @@ public class ProductoController {
 //	public ProductosCat Producto(@PathVariable Long id) {
 //		return productoService.encontrarProductoPorId(id);
 //	}
+	// returnar un paginador
+	@GetMapping("/listar/{page}/{elements}") 
+	public Page<ProductoEntity> listarProductos(@PathVariable(name = "page") int page,@PathVariable(name = "elements") int elements ){
+		Pageable pageRequest = PageRequest.of(page, elements);
+		
+		Page<ProductoEntity> productos = productoService.encontrarProductos(pageRequest);
+		
+		//PageRender<ProductoEntity> pageRender = new PageRender<>( productos);
+		
+//		model.addAttribute("titulo", "Listado de clientes");
+//		model.addAttribute("productos", productos);
+//		model.addAttribute("page",pageRender);
+		
+		return productoService.encontrarProductos(pageRequest);
+	}
 	
 	@GetMapping("/folio/{max}")
 	public String getFolio(@PathVariable(name = "max") String max) {
