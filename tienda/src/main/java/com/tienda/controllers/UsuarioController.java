@@ -1,6 +1,8 @@
 package com.tienda.controllers;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -49,16 +51,46 @@ public class UsuarioController {
 		return usuarioService.combinado();
 	}
 	
-	@PostMapping("/registar")
+	@PostMapping("/registrar")
 	public ResponseEntity<?> registrar(@RequestBody UsuarioDTO usuario, HttpServletResponse response){
+		Map<String, Object> msj = new HashMap<String,Object>();
 		
-		if(usuario !=null) {
-			usuarioService.registrar(usuario);
-			return new ResponseEntity<>(null, HttpStatus.OK);
-		}else {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		try {
+			
+			
+			if(usuario !=null) {
+				UsuarioEntity user = new UsuarioEntity();
+				user.setNombre(usuario.getNombre());
+				user.setApellido(usuario.getApellido());
+				user.setEmail(usuario.getEmail());
+				user.setFechaNacimiento(usuario.getFechaNacimiento());
+				user.setPassword(usuario.getPassword());
+				usuarioDao.save(user);
+				
+				//return el map
+				msj.put("error", false);
+				msj.put("msj","Se guardo exitosamente");
+				msj.put("objeto", usuario);
+				return new ResponseEntity<>(msj, HttpStatus.OK);
+			}else {
+				
+				//return el map
+				msj.put("error", true);
+				msj.put("msj","No hubo usuario");
+				msj.put("objeto", usuario);
+				return new ResponseEntity<>(msj, HttpStatus.NOT_FOUND);
+			}
+			
+		} catch (Exception e) {
+			
+			msj.put("error", true);
+			msj.put("msj",e.getMessage());
+			msj.put("objeto", null);
+			return new ResponseEntity<>(msj,HttpStatus.BAD_REQUEST);
 		}
+		
 	}
+
 	@GetMapping("/email/{email}")
 	public boolean existeEmail(@PathVariable(name="email") String email) {
 		return usuarioService.existeUsuario(email);
