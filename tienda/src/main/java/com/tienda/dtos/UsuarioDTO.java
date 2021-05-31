@@ -28,7 +28,7 @@ public class UsuarioDTO {
 	
 	
 
-	private List<PedidosEntity> pedidos;
+//	private List<PedidosEntity> pedidos;
 	
 	private DireccionEntity direccion;	
 	
@@ -47,17 +47,17 @@ public class UsuarioDTO {
 		this.email = email;
 		this.fechaNacimiento = fechaNacimiento;
 		this.password = password;
-		this.pedidos = pedidos;
+//		this.pedidos = pedidos;
 		this.direccion = direccion;
 	}
 
-	public List<PedidosEntity> getPedidos() {
-		return pedidos;
-	}
-
-	public void setPedidos(List<PedidosEntity> pedidos) {
-		this.pedidos = pedidos;
-	}
+//	public List<PedidosEntity> getPedidos() {
+//		return pedidos;
+//	}
+//
+//	public void setPedidos(List<PedidosEntity> pedidos) {
+//		this.pedidos = pedidos;
+//	}
 
 	public DireccionEntity getDireccion() {
 		return direccion;
