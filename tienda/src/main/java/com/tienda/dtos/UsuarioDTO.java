@@ -30,7 +30,7 @@ public class UsuarioDTO {
 
 //	private List<PedidosEntity> pedidos;
 	
-	private DireccionEntity direccion;	
+//	private DireccionEntity direccion;	
 	
 	
 	
@@ -39,7 +39,7 @@ public class UsuarioDTO {
 	}
 
 	public UsuarioDTO(Long idUsuario, String nombre, String apellido, String email, Date fechaNacimiento,
-			String password, List<PedidosEntity> pedidos, DireccionEntity direccion) {
+			String password) {
 		super();
 		this.idUsuario = idUsuario;
 		this.nombre = nombre;
@@ -48,7 +48,7 @@ public class UsuarioDTO {
 		this.fechaNacimiento = fechaNacimiento;
 		this.password = password;
 //		this.pedidos = pedidos;
-		this.direccion = direccion;
+//		this.direccion = direccion;
 	}
 
 //	public List<PedidosEntity> getPedidos() {
@@ -59,13 +59,13 @@ public class UsuarioDTO {
 //		this.pedidos = pedidos;
 //	}
 
-	public DireccionEntity getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(DireccionEntity direccion) {
-		this.direccion = direccion;
-	}
+//	public DireccionEntity getDireccion() {
+//		return direccion;
+//	}
+//
+//	public void setDireccion(DireccionEntity direccion) {
+//		this.direccion = direccion;
+//	}
 
 	public Long getIdUsuario() {
 		return idUsuario;
